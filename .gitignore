@@ -1,2 +1,8 @@
-Lab_2/image_classifier/
-Lab_2/model_autokeras/
+.gitignore
+model_autokeras
+logs
+image_classifier
+Q1 Model Architectures
+Lab_2/assignment2.pdf
+
+
