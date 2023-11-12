@@ -1,0 +1,9 @@
+numpy==1.19.5
+matplotlib==3.4.3
+pfilter==0.2.4
+scipy==1.6.3
+tqdm==4.61.1
+pandas==1.2.1
+imageio==2.9.0
+torch==1.7.1
+ipython==7.26.0
