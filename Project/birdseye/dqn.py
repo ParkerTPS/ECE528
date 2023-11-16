@@ -17,6 +17,7 @@ import numpy as np
 import pandas as pd
 
 import torch
+import torchsummary
 import torch.distributions
 import torch.nn as nn
 from torch.nn.functional import softmax, log_softmax
@@ -26,6 +27,7 @@ from .rl_common.util import scale_ob
 from .rl_common.replay_buffer import ReplayBuffer, PrioritizedReplayBuffer
 from .rl_common.logger import init_logger, close_logger
 from .rl_common.models import CNN, MLP, RFPFQnet, SmallRFPFQnet
+from torchsummary import summary    # print model summary
 
 from .actions import *
 from .sensor import *
@@ -176,6 +178,11 @@ def run_dqn(env, config, global_start_time):
     #network = CNN(in_dim, policy_dim, atom_num, dueling)
     network = SmallRFPFQnet(in_dim, 4, policy_dim, atom_num, dueling)
     optimizer = Adam(network.parameters(), 1e-4, eps=1e-5)
+
+    # print model summary
+    # state_feature = network.state_feature.to(device)
+    # summary(state_feature.cuda(),(2000,4))
+    # # sys.exit()
 
     qnet = network.to(device)
     qtar = deepcopy(qnet)
@@ -487,7 +494,7 @@ def dqn(args=None, env=None):
         state = RFState()
         env = RFEnv(sensor, actions, state)
 
-    global_start_time = datetime.now().strftime("%Y-%m-%dT%H:%M:%S")
+    global_start_time = datetime.now().strftime("%Y-%m-%dT%H-%M-%S")
     write_header_log(config, 'dqn', global_start_time)
 
     # Run dqn method

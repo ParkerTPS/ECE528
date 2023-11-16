@@ -245,14 +245,14 @@ class Results(object):
 # Logging
 ##################################################################
 def write_header_log(config, method, global_start_time):
-
+    # global_start_time.replace(":","-")
     config2log = {section: dict(config[section]) for section in config.sections()}
 
     #write output header
     run_dir = RUN_DIR
-    if not os.path.isdir('{}/{}/'.format(RUN_DIR, method)):
-        os.makedirs('{}/{}/'.format(RUN_DIR, method))
-    header_filename = "{}/{}/{}_header.txt".format(RUN_DIR, method, global_start_time)
+    if not os.path.isdir("{}\\{}\\".format(RUN_DIR, method)):
+        os.makedirs('{}\\{}\\'.format(RUN_DIR, method))
+    header_filename = "{}\\{}\\{}_header.txt".format(RUN_DIR, method, global_start_time)
     with open(header_filename, "w") as f:
         f.write(json.dumps(config2log))
 

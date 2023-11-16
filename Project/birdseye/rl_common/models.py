@@ -31,7 +31,7 @@ class SmallRFPFQnet(nn.Module):
         )
 
         self.state_feature = nn.Sequential(
-            nn.Linear(state_dim, 64),
+            nn.Linear(state_dim, 64), # check
             nn.ReLU(True),
             nn.Linear(64, 50),
             nn.ReLU(True),
@@ -55,6 +55,7 @@ class SmallRFPFQnet(nn.Module):
             if isinstance(m, nn.Conv2d) or isinstance(m, nn.Linear):
                 nn.init.xavier_uniform_(m.weight, 1)
                 nn.init.constant_(m.bias, 0)
+            
 
     def forward(self, x):
         state = x[:,:self.state_dim]
@@ -130,6 +131,7 @@ class RFPFQnet(nn.Module):
     def forward(self, x):
         state = x[:,:self.state_dim]
         pf_map = x[:,self.state_dim:].view(x.size(0), self.map_dim[0], self.map_dim[1], self.map_dim[2])
+        # pf_map = x[:,self.state_dim:].view(x.size(0), -1)
         assert state.size(0) == pf_map.size(0)
         batch_size = state.size(0)
         map_latent = self.map_feature(pf_map)
